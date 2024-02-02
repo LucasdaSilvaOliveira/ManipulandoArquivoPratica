@@ -1,11 +1,12 @@
-﻿@{
+﻿@model HomeViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <form asp-action="Split" method="post">
+    <form asp-action="Split" enctype="multipart/form-data" method="post">
         <div class="input-group">
-            <input type="file" class="form-control-file"/>
+            <input asp-for="Pdf" type="file" enctype="multipart/form-data" class="form-control-file"/>
         </div>
         <button class="btn btn-sm btn-primary" type="submit">Baixar</button>
     </form>
