@@ -130,10 +130,13 @@ namespace ManipulandoArquivoPratica.Controllers
             var reader = new PdfReader(stream);
             var doc = new PdfDocument(reader);
 
+            var quantidadePaginas = doc.GetNumberOfPages();
+
             stream.Close();
             reader.Close();
+            doc.Close();
 
-            return doc.GetNumberOfPages();
+            return quantidadePaginas;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
