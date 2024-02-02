@@ -77,12 +77,10 @@ namespace ManipulandoArquivoPratica.Controllers
                         // Obtendo o conteúdo do pdf
                         var stream = pdf.OpenReadStream();
                         var pdfReader = new PdfReader(stream);
-                        stream.Position = 0;
+                        //stream.Position = 0;
                         var pdfDocumentReader = new PdfDocument(pdfReader);
 
                         pdfDocumentReader.CopyPagesTo(page, page, pdfDocument);
-
-                        
 
                         // Adicionando o PDF específico ao arquivo ZIP
                         var entry = zipArchive.CreateEntry($"pagina_{page}.pdf");
@@ -91,9 +89,9 @@ namespace ManipulandoArquivoPratica.Controllers
                             var writ = new PdfWriter(entryStream);
                             var doc = new PdfDocument(writ);
 
-                            pdfMemoryStream.Position = 0;
-                            pdfMemoryStream.Seek(0, SeekOrigin.Begin);
-                            pdfMemoryStream.CopyTo(entryStream);
+                            //pdfMemoryStream.Position = 0;
+                            //pdfMemoryStream.Seek(0, SeekOrigin.Begin);
+                            //pdfMemoryStream.CopyTo(entryStream);
                             pdfDocumentReader.CopyPagesTo(page, page, doc);
 
                             doc.Close();
@@ -110,12 +108,12 @@ namespace ManipulandoArquivoPratica.Controllers
               
                 }
 
-                zipMemoryStream.Position = 0;
-                zipMemoryStream.Seek(0, SeekOrigin.Begin);
+                //zipMemoryStream.Position = 0;
+                //zipMemoryStream.Seek(0, SeekOrigin.Begin);
 
                 var conteudoZIP = zipMemoryStream.ToArray();
 
-                //zipMemoryStream.Close();
+                zipMemoryStream.Close();
 
                 return File(conteudoZIP, "application/zip", "nome_do_arquivo.zip");
             }
