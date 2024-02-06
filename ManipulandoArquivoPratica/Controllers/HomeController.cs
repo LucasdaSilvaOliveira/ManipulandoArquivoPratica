@@ -27,34 +27,39 @@ namespace ManipulandoArquivoPratica.Controllers
             return View();
         }
 
-        //MÉTODO QUE COPIA 1 PDF E GERA UM NOVO COM SUCESSO
-        [HttpPost]
-        public IActionResult SplitAntigo(IFormFile pdf)
+        public IActionResult Merge()
         {
-            try
-            {
-                // Criando um espaço na memória para a gravação de um PDF
-                var zipMemoryStream = new MemoryStream();
-                var pdfWriter = new PdfWriter(zipMemoryStream);
-                var pdfDocument = new PdfDocument(pdfWriter);
-
-                // Obtendo o conteúdo do pdf
-                var stream = pdf.OpenReadStream();
-                var pdfReader = new PdfReader(stream);
-                var pdfDocumentReader = new PdfDocument(pdfReader);
-                pdfDocumentReader.CopyPagesTo(1, 1, pdfDocument);
-
-                pdfDocumentReader.Close();
-                pdfDocument.Close();
-
-                var conteudoPDF = zipMemoryStream.ToArray();
-                return File(conteudoPDF, "application/pdf", "nome_do_arquivo.pdf");
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            return View();
         }
+
+        ////MÉTODO QUE COPIA 1 PDF E GERA UM NOVO COM SUCESSO
+        //[HttpPost]
+        //public IActionResult SplitAntigo(IFormFile pdf)
+        //{
+        //    try
+        //    {
+        //        // Criando um espaço na memória para a gravação de um PDF
+        //        var zipMemoryStream = new MemoryStream();
+        //        var pdfWriter = new PdfWriter(zipMemoryStream);
+        //        var pdfDocument = new PdfDocument(pdfWriter);
+
+        //        // Obtendo o conteúdo do pdf
+        //        var stream = pdf.OpenReadStream();
+        //        var pdfReader = new PdfReader(stream);
+        //        var pdfDocumentReader = new PdfDocument(pdfReader);
+        //        pdfDocumentReader.CopyPagesTo(1, 1, pdfDocument);
+
+        //        pdfDocumentReader.Close();
+        //        pdfDocument.Close();
+
+        //        var conteudoPDF = zipMemoryStream.ToArray();
+        //        return File(conteudoPDF, "application/pdf", "nome_do_arquivo.pdf");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception(ex.Message);
+        //    }
+        //}
 
         [HttpPost]
         public IActionResult Split(IFormFile pdf)

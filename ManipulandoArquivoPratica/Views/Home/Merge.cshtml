@@ -1,0 +1,37 @@
+﻿@model HomeViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <form asp-action="MergePdf" enctype="multipart/form-data" method="post">
+        <div class="input-group">
+            <input id="fileInput" asp-for="PDFs" type="file" accept=".pdf" enctype="multipart/form-data" class="form-control-file" multiple />
+        </div>
+        <button class="btn btn-sm btn-primary" type="submit">Mesclar</button>
+    </form>
+</div>
+
+<div id="pdfList"></div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#fileInput').on('change', function (event) {
+            var files = event.target.files;
+            displayPDFNames(files);
+        });
+    });
+
+    function displayPDFNames(files) {
+        var pdfList = $('#pdfList');
+        pdfList.empty();
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            var fileName = file.name;
+            var listItem = $('<div>').text(fileName);
+            pdfList.append(listItem);
+        }
+    }
+</script>
